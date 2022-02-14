@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * easyOPAC Wysiwyg Button module.
+ */
+
+/**
+ * Implements hook_wysiwyg_plugin().
+ */
+function easyopac_wysiwyg_button_wysiwyg_plugin($editor, $version) {
+  if ($editor == 'ckeditor') {
+    return [
+      'easyopac_button_plugin' => [
+        'path' => drupal_get_path('module', 'easyopac_wysiwyg_button') . '/plugin',
+        'buttons' => [
+          'easyopac_button' => t('easyOPAC: Insert button'),
+        ],
+        'load' => TRUE,
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_wysiwyg_editor_settings_alter().
+ */
+function easyopac_wysiwyg_button_wysiwyg_editor_settings_alter(&$settings, $context) {
+  $preset = variable_get('color_ddbasic_stylesheets', '');
+  if (!empty($preset)) {
+    $values['color_ddbasic_stylesheets'] = $preset;
+  }
+
+  $colored_css_url = NULL;
+  if (!empty($values)) {
+    foreach ($values['color_ddbasic_stylesheets'] as $color_ddbasic_stylesheet) {
+      // class.css file contains description of "more-link" class.
+      if (preg_match('/\/class.css/', $color_ddbasic_stylesheet) === 1) {
+        $colored_css_url = file_create_url($color_ddbasic_stylesheet);
+      }
+    }
+  }
+
+  if ('ding_wysiwyg' === $context['profile']->format) {
+    if ($colored_css_url) {
+      $settings['contentsCss'][] = $colored_css_url;
+    }
+    $settings['contentsCss'][] = drupal_get_path('module', 'easyopac_wysiwyg_button') . '/css/easyopac_wysiwyg_button.css';
+  }
+}

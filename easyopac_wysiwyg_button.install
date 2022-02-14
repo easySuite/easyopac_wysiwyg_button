@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Module installation/uninstallation routine.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function easyopac_wysiwyg_button_install() {
+  $settings = db_select('wysiwyg', 'w')
+    ->fields('w', ['settings'])
+    ->condition('format', 'ding_wysiwyg')
+    ->condition('editor', 'ckeditor')
+    ->execute()
+    ->fetchField();
+
+  $settings = unserialize($settings);
+  $settings['buttons']['easyopac_button_plugin']['easyopac_button'] = 1;
+  $settings = serialize($settings);
+
+  db_update('wysiwyg')
+    ->fields([
+      'settings' => $settings,
+    ])
+    ->condition('format', 'ding_wysiwyg')
+    ->condition('editor', 'ckeditor')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function easyopac_wysiwyg_button_uninstall() {
+  $settings = db_select('wysiwyg', 'w')
+    ->fields('w', ['settings'])
+    ->condition('format', 'ding_wysiwyg')
+    ->condition('editor', 'ckeditor')
+    ->execute()
+    ->fetchField();
+
+  $settings = unserialize($settings);
+  unset($settings['buttons']['easyopac_button_plugin']);
+  $settings = serialize($settings);
+
+  db_update('wysiwyg')
+    ->fields([
+      'settings' => $settings,
+    ])
+    ->condition('format', 'ding_wysiwyg')
+    ->condition('editor', 'ckeditor')
+    ->execute();
+}
