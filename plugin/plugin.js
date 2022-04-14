@@ -2,8 +2,10 @@
  * @file
  * CKEditor custom plugin initialization.
  */
-(function ($, CKEDITOR) {
+(function () {
   "use strict";
+
+  const CKEDITOR = window.CKEDITOR;
   CKEDITOR.timestamp = '';
   CKEDITOR.plugins.add('easyopac_button_plugin', {
     init: function (editor) {
@@ -16,4 +18,4 @@
       CKEDITOR.dialog.add('eoInsertButtonDialog', this.path + '/dialogs/eoInsertButtonDialog.js');
     }
   });
-})(jQuery);
+})();
