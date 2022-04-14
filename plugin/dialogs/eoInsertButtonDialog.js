@@ -10,7 +10,6 @@ CKEDITOR.dialog.add('eoInsertButtonDialog', function (editor) {
     title: 'easyOPAC Button: Button properties',
     minWidth: 400,
     minHeight: 200,
-
     contents: [{
       id: 'tab-basic',
       label: 'Properties',
