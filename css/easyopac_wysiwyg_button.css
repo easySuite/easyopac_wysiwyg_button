@@ -8,10 +8,9 @@ div.more-link.ckeditor-more-link {
   min-width: 23.13167%;
 }
 
-div.more-link.ckeditor-more-link a {
-  width: 0 !important;
-  text-decoration: none !important;
-  padding-right: 110px;
+.page-node div.more-link.ckeditor-more-link a {
+  width: auto;
+  text-decoration: none;
 }
 
 .more-link {
