@@ -1,6 +1,6 @@
 name = "easyOPAC Wysiwyg Button"
 description = "Inserts button markup everywhere an CKEditor WYSIWYG editor is used."
 core = 7.x
-version = 7.x-6.5.0
+version = 7.x-6.6.0
 package = easyOPAC
 stylesheets[all][] = 'css/easyopac_wysiwyg_button.css'
